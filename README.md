@@ -1,7 +1,7 @@
 odps_book
 =========
 
-= Introduction
+Introduction
 -------------
 
 This is the source code and data for ODPS book.
@@ -18,7 +18,7 @@ The following is mainly divided by modules (instead of chapters of the book).
 * data          - the data used to demonstrate examples in the book
 * image         - some (colored) images within the book
 
-= Contact
+Contact
 -------------
 
 Any suggestion or help (to improve the book) will be deeply appreciated. 
