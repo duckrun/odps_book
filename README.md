@@ -2,6 +2,8 @@ odps_book
 =========
 
 = Introduction
+-------------
+
 This is the source code and data for ODPS book.
 The following is mainly divided by modules (instead of chapters of the book).
 * introduction  - ch02, a quick start
@@ -17,5 +19,7 @@ The following is mainly divided by modules (instead of chapters of the book).
 * image         - some (colored) images within the book
 
 = Contact
+-------------
+
 Any suggestion or help (to improve the book) will be deeply appreciated. 
 Please contact me by email: meifang.li@aliyun.com or weibo: http://weibo.com/duckrun
