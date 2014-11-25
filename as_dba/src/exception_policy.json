@@ -1,0 +1,12 @@
+{
+"Version": "1",
+"Statement":
+ [{
+    "Effect":"Allow",
+    "Principal":"meifang.li@aliyun.com",
+    "Action":["odps:Select"],
+    "Resource":"acs:odps:*:projects/odps_book/tables/alice_result"
+}]
+}
+
+

@@ -1,0 +1,44 @@
+<project name="lbs" basedir="." default="dist">
+    <property name="version" value="0.1"/>
+    <property name="prj.name" value="lbs"/>
+    <property name="build.dir" value="build"/>
+    <property name="classes.dir" value="${build.dir}/classes"/>
+    <property name="dist.dir" value="${build.dir}/${prj.name}"/>
+
+    <path id="classpath">
+        <fileset dir="lib" includes="*.jar"/>
+    </path>
+
+    <target name="clean">
+        <delete dir="${build.dir}"/>
+    </target>
+
+    <target name="compile">
+        <exec executable="hostname" outputproperty="computer.hostname"/>
+        <echo message="Building on host: ${computer.hostname}"/>
+        <mkdir dir="${classes.dir}"/>
+        <javac srcdir="src" 
+               destdir="${classes.dir}" 
+               classpathref="classpath"
+               debug="on"
+               includeantruntime="false"/>
+    </target>
+
+    <target name="jar" depends="compile">
+        <jar destfile="${build.dir}/${prj.name}-${version}.jar" basedir="${classes.dir}">
+            <zipgroupfileset dir="lib" includes="geohash-java.jar" />
+            <manifest>
+                <attribute name="Main-Class" value="example.lbs.AddressLocate"/>
+            </manifest>
+        </jar>
+    </target>
+
+    <target name="dist" depends="jar">
+        <mkdir dir="${dist.dir}"/>
+        <copy todir="${dist.dir}/lib">
+          <fileset file="${build.dir}/*.jar"/>
+        </copy>
+
+    </target>
+
+</project>

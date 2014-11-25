@@ -1,0 +1,51 @@
+<project name="hadoop2odps" basedir="." default="dist">
+    <property name="version" value="0.1"/>
+    <property name="prj.name" value="hadoop2odps"/>
+    <property name="build.dir" value="build"/>
+    <property name="classes.dir" value="${build.dir}/classes"/>
+    <property name="dist.dir" value="${build.dir}/${prj.name}"/>
+
+    <path id="classpath">
+        <fileset dir="lib" includes="*.jar"/>
+    </path>
+
+    <target name="clean">
+        <delete dir="${build.dir}"/>
+    </target>
+
+    <target name="compile">
+        <exec executable="hostname" outputproperty="computer.hostname"/>
+        <echo message="Building on host: ${computer.hostname}"/>
+        <mkdir dir="${classes.dir}"/>
+        <javac srcdir="src" 
+               destdir="${classes.dir}" 
+               classpathref="classpath"
+               debug="on"
+               includeantruntime="false"/>
+    </target>
+
+    <target name="jar" depends="compile">
+        <jar destfile="${build.dir}/${prj.name}-${version}.jar" basedir="${classes.dir}">
+            <manifest>
+                <attribute name="Main-Class" value="example.hadoop.Hdfs2ODPS"/>
+            </manifest>
+        </jar>
+    </target>
+
+    <target name="dist" depends="jar">
+        <mkdir dir="${dist.dir}"/>
+        <copy todir="${dist.dir}">
+          <fileset file="run.sh"/>
+          <fileset file="README"/>
+        </copy>
+        <chmod perm="ugo+x" type="file" parallel="false">
+          <fileset file="${dist.dir}/run.sh"/>
+        </chmod>
+        <copy todir="${dist.dir}/lib">
+          <fileset file="${build.dir}/${prj.name}-*.jar"/>
+          <fileset file="lib/odps-sdk-core-0.12.0.jar"/>
+        </copy>
+
+    </target>
+
+</project>

@@ -1,0 +1,14 @@
+{
+"Version": "1",
+"Statement":
+ [{
+    "Effect":"Allow",
+    "Action":["odps:CreateInstance","odps:List"],
+    "Resource":"acs:odps:*:projects/odps_book/*"
+}
+,{
+    "Effect":"Allow",
+    "Action":["odps:Describe","odps:Select"],
+    "Resource":"acs:odps:*:projects/odps_book/tables/taobao_*"
+}]
+}
