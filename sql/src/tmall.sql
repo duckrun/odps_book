@@ -111,20 +111,21 @@ FROM tmall_user_brand
 WHERE visit_datetime <= '0715'
 GROUP BY user_id, brand_id;
 
-CREATE VIEW tmall_train_ub_action as
-SELECT
-    user_id,
-    brand_id,
-    sum(case when type='1' then 1 else 0 end) as buy_cnt,
-    sum(case when type='0' and visit_datetime > '0708' then 1 else 0 end) as click_d7,
-    sum(case when type='2' and visit_datetime > '0708' then 1 else 0 end) as collect_d7,
-    sum(case when type='3' and visit_datetime > '0708' then 1 else 0 end) as shopping_cart_d7,
-    sum(case when type='0' and visit_datetime > '0712' then 1 else 0 end) as click_d3,
-    sum(case when type='2' and visit_datetime > '0712' then 1 else 0 end) as collect_d3,
-    sum(case when type='3' and visit_datetime > '0712' then 1 else 0 end) as shopping_cart_d3
-FROM tmall_user_brand
-WHERE visit_datetime <= '0715'
-GROUP BY user_id, brand_id;
+CREATE TABLE tmall_train_features as
+SELECT 
+    t1.user_id,
+    t1.brand_id,
+    t1.buy_cnt,
+    t1.click_d7,
+    t1.collect_d7,
+    t1.shopping_cart_d7,
+    t1.click_d3,
+    t1.collect_d3,
+    t1.shopping_cart_d3,
+    t2.cvr
+FROM tmall_train_ub_action t1
+LEFT OUTER JOIN tmall_train_b_cvr t2
+ON t1.brand_id = t2.brand_id;
 
 -- step 2) positive/negative samples
 CREATE TABLE tmall_ub_ifbuy AS
