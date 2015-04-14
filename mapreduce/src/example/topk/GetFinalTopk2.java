@@ -60,7 +60,7 @@ public class GetFinalTopk2 {
         result.set(0, val.get(0));
         result.set(1, 0 - key.getBigint(0));
         context.write(result); 
-        count += 1; //count++放在while会导致每次退出循环多加一次，造成结果输出只有7条记录
+        count += 1; //count++放在while会导致每次退出循环多加一次
       }
     }
   }
